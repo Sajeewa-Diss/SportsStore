@@ -20,5 +20,10 @@ namespace SportsStore.WebUI.Controllers
         {
             return View(repository.Products);
         }
+
+        public ViewResult TestConnection()
+        {
+            return View("TestConnection", (object)repository.TestConnection()); 
+        }
     }
 }

@@ -6,7 +6,9 @@ using System.Linq;
 using System.Web.Mvc;
 using Moq;
 using SportsStore.Domain.Abstract;
+using SportsStore.Domain.Concrete;
 using SportsStore.Domain.Entities;
+
 
 
 namespace SportsStore.WebUI
@@ -49,15 +51,17 @@ namespace SportsStore.WebUI
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
+            
+            container.RegisterType<IProductRepository, EFProductRepository>();
 
-            //Register an instance of a mock object for IProductRepository whenever it is called.
-            var mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns(new List<Product> {
-                new Product { Name = "Football", Price = 25 },
-                new Product { Name = "Surf board", Price = 179 },
-                new Product { Name = "Running shoes", Price = 95 }});
+            ////Register an instance of a mock object for IProductRepository whenever it is called.
+            //var mock = new Mock<IProductRepository>();
+            //mock.Setup(m => m.Products).Returns(new List<Product> {
+            //    new Product { Name = "Football", Price = 25 },
+            //    new Product { Name = "Surf board", Price = 179 },
+            //    new Product { Name = "Running shoes", Price = 95 }});
 
-            container.RegisterInstance<IProductRepository>(mock.Object);
+            //container.RegisterInstance<IProductRepository>(mock.Object);
 
         }
     }
