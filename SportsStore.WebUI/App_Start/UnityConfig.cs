@@ -51,13 +51,13 @@ namespace SportsStore.WebUI
             // container.RegisterType<IProductRepository, ProductRepository>();
 
             //Register an instance of a mock object for IProductRepository whenever it is called.
-            var myMock = new Mock<IProductRepository>();
-            myMock.Setup(m => m.Products).Returns(new List<Product> {
+            var mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new List<Product> {
                 new Product { Name = "Football", Price = 25 },
                 new Product { Name = "Surf board", Price = 179 },
                 new Product { Name = "Running shoes", Price = 95 }});
 
-            container.RegisterInstance<IProductRepository>(myMock.Object);
+            container.RegisterInstance<IProductRepository>(mock.Object);
 
         }
     }
