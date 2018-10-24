@@ -1,6 +1,7 @@
 using System;
 using Unity;
-
+using Unity.Injection;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -8,7 +9,6 @@ using Moq;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Concrete;
 using SportsStore.Domain.Entities;
-
 
 
 namespace SportsStore.WebUI
@@ -49,11 +49,18 @@ namespace SportsStore.WebUI
             // Make sure to add a Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
+            EmailSettings emailSettings = new EmailSettings
+            {
+                WriteAsFile = bool.Parse(ConfigurationManager
+                .AppSettings["Email.WriteAsFile"] ?? "false")
+            };
+
+
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            
-            container.RegisterType<IProductRepository, EFProductRepository>();
 
+            container.RegisterType<IProductRepository, EFProductRepository>();
+            container.RegisterType<IOrderProcessor, EmailOrderProcessor>(new InjectionConstructor(emailSettings));
             ////Register an instance of a mock object for IProductRepository whenever it is called.
             //var mock = new Mock<IProductRepository>();
             //mock.Setup(m => m.Products).Returns(new List<Product> {
