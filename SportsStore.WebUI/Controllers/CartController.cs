@@ -25,8 +25,7 @@ namespace SportsStore.WebUI.Controllers
                 Cart = cart
             });
         }
-        public RedirectToRouteResult AddToCart(Cart cart, int productId,
-        string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
             Product product = repository.Products
             .FirstOrDefault(p => p.ProductID == productId);
